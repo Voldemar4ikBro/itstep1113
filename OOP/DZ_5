@@ -1,0 +1,42 @@
+class Employee:
+    def __init__(self, name, position, salary):
+        self.name = name
+        self.position = position
+        self.salary = salary
+
+    def __str__(self):
+        return f"Ім'я: {self.name}, Посада: {self.position}, Зарплата: {self.salary} грн"
+
+class Department:
+    def __init__(self, name):
+        self.name = name
+        self.employees = []
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+
+    def remove_employee(self, name):
+        self.employees = [emp for emp in self.employees if emp.name != name]
+
+    def calculate_total_salary(self):
+        return sum(emp.salary for emp in self.employees)
+
+    def show_employees(self):
+        if not self.employees:
+            print("У відділі немає співробітників.")
+        for emp in self.employees:
+            print(emp)
+
+# Приклад використання
+department = Department("IT-відділ")
+emp1 = Employee("Іван Іванов", "Програміст", 30000)
+emp2 = Employee("Анна Петренко", "Тестувальник", 25000)
+
+department.add_employee(emp1)
+department.add_employee(emp2)
+
+department.show_employees()
+print(f"Загальна зарплата: {department.calculate_total_salary()} грн")
+
+department.remove_employee("Іван Іванов")
+department.show_employees()
