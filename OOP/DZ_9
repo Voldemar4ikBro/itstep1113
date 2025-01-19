@@ -1,0 +1,216 @@
+import requests
+from bs4 import BeautifulSoup
+
+class Coinmarket:
+    def __init__(self,url):
+        self.url=url
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36'
+        }
+        self.soup=None
+
+    def fetch_page(self):
+            #Відправка запроса
+            response = requests.get(self.url, headers=self.headers)
+            if response.status_code==200:
+                self.soup=BeautifulSoup(response.text,"html.parser")
+            else:
+                raise Exception("Не вдалося під'єднатися до сайту")
+        
+    def getInfo(self):
+        coins=[]
+        table=self.soup.find('div',class_="h-market-table_limiter", id="market-table_currency-cash_limiter")
+        if not table: raise Exception("Не вдалося знайти таблицю")
+        for i in table:
+            nameCoin=i.find_all("td",class_="c1") #Назва монети
+            name=nameCoin[0].text.strip() if nameCoin else "Назва монети відсутня"
+            priceCoin=i.find_all("td", class_="c2")#опис фильму
+            price = priceCoin[0].text.strip() if priceCoin else "Ціна монети відсутня"
+            priceCoin2=i.find_all("td", class_="c3")#опис фильму
+            price2 = priceCoin2[0].text.strip() if priceCoin2 else "Ціна монети відсутня"
+            cols = table.find_all('td')
+            if len(cols) >= 2:  # Убедиться, что есть достаточное количество колонок
+                currency = cols[0].text.strip()  # Валюта
+                buy = cols[1].text.strip()  # Покупка
+                sell = cols[2].text.strip()  # Продажа
+                
+            coins.append(
+                {
+                    "Назва:":name,
+                    "Купівля:":price,
+                    "Продаж:":price2
+                }
+            )
+        return coins
+    def getInfo1(self):
+        coins1=[]
+        table1=self.soup.find('div',class_="h-market-table_limiter", id="market-table_currency-cash_limiter")
+        if not table1: raise Exception("Не вдалося знайти таблицю")
+        for i in table1:
+            nameCoin1=i.find_all("td",class_="c1") #Назва монети
+            name1=nameCoin1[1].text.strip() if nameCoin1 else "Назва монети відсутня"
+            priceCoin1=i.find_all("td", class_="c2")#опис фильму
+            price1 = priceCoin1[1].text.strip() if priceCoin1 else "Ціна монети відсутня"
+            priceCoin3=i.find_all("td", class_="c3")#опис фильму
+            price3 = priceCoin3[1].text.strip() if priceCoin3 else "Ціна монети відсутня"
+            cols1 = table1.find_all('td')
+            if len(cols1) >= 2:  # Убедиться, что есть достаточное количество колонок
+                currency = cols1[0].text.strip()  # Валюта
+                buy = cols1[1].text.strip()  # Покупка
+                sell = cols1[2].text.strip()  # Продажа
+                
+            coins1.append(
+                {
+                    "Назва:":name1,
+                    "Купівля:":price1,
+                    "Продаж:":price3
+                }
+            )
+        return coins1
+    def getInfo2(self):
+        coins2=[]
+        table2=self.soup.find('div',class_="h-market-table_limiter", id="market-table_currency-cash_limiter")
+        if not table2: raise Exception("Не вдалося знайти таблицю")
+        for i in table2:
+            nameCoin2=i.find_all("td",class_="c1") #Назва монети
+            name2=nameCoin2[2].text.strip() if nameCoin2 else "Назва монети відсутня"
+            priceCoin4=i.find_all("td", class_="c2")#опис фильму
+            price4 = priceCoin4[2].text.strip() if priceCoin4 else "Ціна монети відсутня"
+            priceCoin5=i.find_all("td", class_="c3")#опис фильму
+            price5 = priceCoin5[2].text.strip() if priceCoin5 else "Ціна монети відсутня"
+            cols2 = table2.find_all('td')
+            if len(cols2) >= 3:  # Убедиться, что есть достаточное количество колонок
+                currency = cols2[0].text.strip()  # Валюта
+                buy = cols2[1].text.strip()  # Покупка
+                sell = cols2[2].text.strip()  # Продажа
+                
+            coins2.append(
+                {
+                    "Назва:":name2,
+                    "Купівля:":price4,
+                    "Продаж:":price5
+                }
+            )
+        return coins2
+    def getInfo3(self):
+        coins3=[]
+        table3=self.soup.find('div',class_="h-market-table_limiter", id="market-table_currency-cash_limiter")
+        if not table3: raise Exception("Не вдалося знайти таблицю")
+        for i in table3:
+            nameCoin3=i.find_all("td",class_="c1") #Назва монети
+            name3=nameCoin3[3].text.strip() if nameCoin3 else "Назва монети відсутня"
+            priceCoin6=i.find_all("td", class_="c2")#опис фильму
+            price6 = priceCoin6[3].text.strip() if priceCoin6 else "Ціна монети відсутня"
+            priceCoin7=i.find_all("td", class_="c3")#опис фильму
+            price7 = priceCoin7[3].text.strip() if priceCoin7 else "Ціна монети відсутня"
+            cols3 = table3.find_all('td')
+            if len(cols3) >= 4:  # Убедиться, что есть достаточное количество колонок
+                currency = cols3[0].text.strip()  # Валюта
+                buy = cols3[1].text.strip()  # Покупка
+                sell = cols3[2].text.strip()  # Продажа
+                
+            coins3.append(
+                {
+                    "Назва:":name3,
+                    "Купівля:":price6,
+                    "Продаж:":price7
+                }
+            )
+        return coins3
+    def getInfo4(self):
+        coins4=[]
+        table4=self.soup.find('div',class_="h-market-table_limiter", id="market-table_currency-cash_limiter")
+        if not table4: raise Exception("Не вдалося знайти таблицю")
+        for i in table4:
+            nameCoin4=i.find_all("td",class_="c1") #Назва монети
+            name4=nameCoin4[4].text.strip() if nameCoin4 else "Назва монети відсутня"
+            priceCoin8=i.find_all("td", class_="c2")#опис фильму
+            price8 = priceCoin8[4].text.strip() if priceCoin8 else "Ціна монети відсутня"
+            priceCoin9=i.find_all("td", class_="c3")#опис фильму
+            price9 = priceCoin9[4].text.strip() if priceCoin9 else "Ціна монети відсутня"
+            cols4 = table4.find_all('td')
+            if len(cols4) >= 5:  # Убедиться, что есть достаточное количество колонок
+                currency = cols4[0].text.strip()  # Валюта
+                buy = cols4[1].text.strip()  # Покупка
+                sell = cols4[2].text.strip()  # Продажа
+                
+            coins4.append(
+                {
+                    "Назва:":name4,
+                    "Купівля:":price8,
+                    "Продаж:":price9
+                }
+            )
+        return coins4
+    def printInfo(self,coins):
+        for i,j in enumerate(coins,start=1):
+            print(i,") Валюта")
+            print('\t','Назва:',j['Назва:'])
+            print('\t', 'Купівля:', j['Купівля:'])
+            print('\t', 'Продаж:', j['Продаж:'])
+        print('='*40,'\n')
+
+    def printInfo1(self,coins1):
+        for i,j in enumerate(coins1,start=2):
+            print(i,") Валюта")
+            print('\t','Назва:',j['Назва:'])
+            print('\t', 'Купівля:', j['Купівля:'])
+            print('\t', 'Продаж:', j['Продаж:'])
+        print('='*40,'\n')
+    def printInfo2(self,coins2):
+        for i,j in enumerate(coins2,start=3):
+            print(i,") Валюта")
+            print('\t','Назва:',j['Назва:'])
+            print('\t', 'Купівля:', j['Купівля:'])
+            print('\t', 'Продаж:', j['Продаж:'])
+        print('='*40,'\n')
+    def printInfo3(self,coins3):
+        for i,j in enumerate(coins3,start=4):
+            print(i,") Валюта")
+            print('\t','Назва:',j['Назва:'])
+            print('\t', 'Купівля:', j['Купівля:'])
+            print('\t', 'Продаж:', j['Продаж:'])
+        print('='*40,'\n')
+    def printInfo4(self,coins4):
+        for i,j in enumerate(coins4,start=5):
+            print(i,") Валюта")
+            print('\t','Назва:',j['Назва:'])
+            print('\t', 'Купівля:', j['Купівля:'])
+            print('\t', 'Продаж:', j['Продаж:'])
+        print('='*40,'\n')
+
+if __name__ == "__main__":
+    url = "https://finance.ua/ua/currency"  # Update URL if necessary
+    parser = Coinmarket(url)
+    try:
+        parser.fetch_page()
+        exchange_rates = parser.get_exchange_rates()
+        parser.print_exchange_rates(exchange_rates)
+    except Exception as e:
+        print(f"Error: {e}")
+
+    
+
+if __name__ == "__main__":
+    url="https://finance.ua/ua/currency"
+    parse=Coinmarket(url)
+    try:
+        parse.fetch_page()
+        parse.fetch_page()
+        # f=parse.get_info()
+        # в3.print_info()
+        coin=parse.getInfo()
+        coin1=parse.getInfo1()
+        coin2=parse.getInfo2()
+        coin3=parse.getInfo3()
+        coin4=parse.getInfo4()
+        parse.printInfo(coin)
+        parse.printInfo1(coin1)
+        parse.printInfo2(coin2)
+        parse.printInfo3(coin3)
+        parse.printInfo4(coin4)
+        exchange_rates = parser.get_exchange_rates()
+        parser.print_exchange_rates(exchange_rates)
+ 
+    except Exception as e:
+        print(e)
